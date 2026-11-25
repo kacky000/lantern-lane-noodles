@@ -5,6 +5,7 @@ import { drawHud, drawHoldingTag } from './hud.js';
 import { drawFx } from './fx.js';
 import { drawTitle, drawEnd, drawPause } from './screens.js';
 import { stationInReach } from './chef.js';
+import { drawPlatingGuide } from './plating-guide.js';
 import { SCREEN_END, SCREEN_PLAY, SCREEN_TITLE } from './world.js';
 
 /** Fits the 1280x720 stage into the canvas, letterboxed. */
@@ -64,6 +65,7 @@ export function renderFrame(ctx, canvas, view, world, fx, time, paused) {
   drawStations(ctx, world, time, target);
   drawChef(ctx, world.chef, time);
   drawHoldingTag(ctx, world);
+  if (world.screen === SCREEN_PLAY) drawPlatingGuide(ctx, world);
   drawFx(ctx, fx);
   ctx.restore();
   drawHud(ctx, world, time);
