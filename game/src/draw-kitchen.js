@@ -37,15 +37,15 @@ export function drawFloor(ctx, time) {
       ctx.fillRect(x + 4, y + 4, TILE / 2 - 4, TILE / 2 - 4);
     }
   }
-  drawRug(ctx, 6 * TILE + 20, GRID.top + 3 * TILE + 14, 8 * TILE - 40, 3 * TILE - 28);
-  for (const [px, py] of [[250, 420], [640, 260], [1010, 560], [1000, 300]]) {
+  drawRug(ctx, 4 * TILE + 20, GRID.top + 2 * TILE + 14, 7 * TILE - 40, 3 * TILE - 28);
+  for (const [px, py] of [[200, 250], [500, 110], [840, 330], [720, 220]]) {
     const pool = ctx.createRadialGradient(px, py, 4, px, py, 130);
     pool.addColorStop(0, 'rgba(255,190,110,0.16)');
     pool.addColorStop(1, 'rgba(255,190,110,0)');
     ctx.fillStyle = pool;
     ctx.fillRect(px - 130, py - 130, 260, 260);
   }
-  const glow = ctx.createRadialGradient(640, GRID.top + 300, 60, 640, GRID.top + 300, 700);
+  const glow = ctx.createRadialGradient(512, GRID.top + 224, 60, 512, GRID.top + 224, 600);
   glow.addColorStop(0, `rgba(255,170,80,${0.1 + Math.sin(time * 1.3) * 0.015})`);
   glow.addColorStop(1, 'rgba(10,5,20,0.35)');
   ctx.fillStyle = glow;
@@ -229,8 +229,8 @@ function drawTrash(ctx, cx, cy) {
 
 /** The serving window on the right wall: a lit hatch with a bell and the night street beyond. */
 export function drawHatch(ctx, time) {
-  const x = 19 * TILE;
-  const y = GRID.top + 3 * TILE;
+  const x = (GRID.cols - 1) * TILE;
+  const y = GRID.top + 2 * TILE;
   const h = TILE * 3;
   rect(ctx, x, y, TILE, h, '#3a2416');
   const street = ctx.createLinearGradient(x, y, x + TILE, y);

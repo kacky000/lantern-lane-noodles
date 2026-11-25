@@ -59,29 +59,30 @@ function rushScene(world) {
   order(world, 'ember');
   wait(world, 24);
   order(world, 'moon');
-  use(world, 1, 0); use(world, 15, 0); use(world, 9, 4);
+  use(world, 1, 0); use(world, 13, 0); use(world, 6, 3);
   use(world, 2, 0); use(world, 7, 0);
-  use(world, 5, 8); use(world, 11, 0);
+  use(world, 4, 6); use(world, 10, 0);
   wait(world, 5.2);
-  use(world, 7, 0); use(world, 9, 4);
-  use(world, 11, 0); use(world, 9, 4);
+  use(world, 7, 0); use(world, 6, 3);
+  use(world, 10, 0); use(world, 6, 3);
   order(world, 'lantern');
-  use(world, 17, 8); use(world, 15, 8); use(world, 10, 4);
-  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 10, 4);
+  use(world, 13, 6); use(world, 11, 6); use(world, 7, 3);
+  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 7, 3);
   use(world, 2, 0); use(world, 7, 0);
   wait(world, 6);
-  use(world, 7, 0); use(world, 10, 4);
-  use(world, 5, 8); use(world, 12, 0);
+  use(world, 7, 0); use(world, 7, 3);
+  use(world, 4, 6); use(world, 11, 0);
   order(world, 'forest');
   wait(world, 5);
   use(world, 2, 0); use(world, 8, 0);
   use(world, 4, 0); use(world, 0, 4); chopAll(world, 0, 4, 3);
-  use(world, 5, 0); use(world, 10, 8); chopAll(world, 10, 8, 5); use(world, 10, 8); use(world, 11, 4);
-  use(world, 3, 8); use(world, 12, 4);
+  use(world, 5, 0); use(world, 7, 6); chopAll(world, 7, 6, 5); use(world, 7, 6); use(world, 8, 3);
+  use(world, 2, 6); use(world, 9, 3);
+  use(world, 13, 6); use(world, 12, 3);
   order(world, 'cold');
   wait(world, 3.2);
-  use(world, 4, 8);
-  standBy(world, 9, 4);
+  use(world, 3, 6);
+  standBy(world, 6, 3);
   world.chef.y += 6;
   world.chef.walk = 1.2;
 }
@@ -96,22 +97,23 @@ function serveScene(world) {
   order(world, 'cold');
   wait(world, 6);
   order(world, 'forest');
-  use(world, 1, 0); use(world, 8, 4);
+  use(world, 1, 0); use(world, 6, 3);
   use(world, 2, 0); use(world, 7, 0);
-  use(world, 5, 0); use(world, 14, 2); chopAll(world, 14, 2, 5); use(world, 14, 2); use(world, 8, 4);
-  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 8, 4);
-  use(world, 1, 0); use(world, 15, 0); use(world, 10, 4);
+  use(world, 5, 0); use(world, 7, 6); chopAll(world, 7, 6, 5); use(world, 7, 6); use(world, 6, 3);
+  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 6, 3);
+  use(world, 1, 0); use(world, 13, 0); use(world, 8, 3);
   use(world, 2, 0); use(world, 8, 0);
   wait(world, 5.2);
-  use(world, 7, 0); use(world, 10, 4);
-  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 10, 4);
+  use(world, 7, 0); use(world, 8, 3);
+  use(world, 3, 0); use(world, 0, 2); chopAll(world, 0, 2, 5); use(world, 0, 2); use(world, 8, 3);
   use(world, 4, 0); use(world, 0, 4); chopAll(world, 0, 4, 2);
-  use(world, 5, 8); use(world, 11, 0);
+  use(world, 4, 6); use(world, 10, 0);
+  use(world, 2, 6); use(world, 12, 3);
   order(world, 'ember');
   wait(world, 1.5);
-  use(world, 10, 4);
+  use(world, 8, 3);
   world.events.length = 0;
-  use(world, 19, 4);
+  use(world, 15, 3);
 }
 
 /** A whole shift played out to the shutters for the tally screen. */
@@ -122,7 +124,7 @@ function endScene(world) {
     order(world, id);
     wait(world, 6);
     world.chef.hold = { kind: 'bowl', parts: [...recipeById(id).parts] };
-    use(world, 19, 4);
+    use(world, 15, 3);
   }
   const earned = world.coins;
   world.orders = [];

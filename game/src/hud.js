@@ -1,14 +1,14 @@
 // The order board and the shift clock: paper tickets on a rail, each with its bowl, its parts and
 // how they are prepped, and a patience bar; the coin purse, the streak and a ring clock that
 // reddens and ticks as closing time comes.
-import { COLORS, VIEW, GRID } from './config.js';
+import { COLORS, VIEW, STAGE } from './config.js';
 import { drawBowl, drawIngredientIcon } from './draw-food.js';
 import { INGREDIENTS, PREP_BOIL, PREP_CHOP, PREP_GRILL } from './recipes.js';
 import { isRush, payFor } from './orders.js';
 import { timeLeft } from './world.js';
 import { itemLabel } from './items.js';
 
-const TICKET = { x: 236, y: 10, w: 170, h: 114, gap: 6 };
+const TICKET = { x: 236, y: 14, w: 170, h: 134, gap: 6 };
 
 function roundRect(ctx, x, y, w, h, r, fill) {
   ctx.beginPath();
@@ -75,16 +75,16 @@ function drawTicket(ctx, world, order, x, y, time) {
   roundRect(ctx, x, y, TICKET.w, 22, 6, band);
   ctx.fillRect(x, y + 14, TICKET.w, 8);
   text(ctx, order.recipe.name, x + 8, y + 16, 13, '#1d1424', 800);
-  drawBowl(ctx, order.recipe.parts, x + 34, y + 56, 25);
+  drawBowl(ctx, order.recipe.parts, x + 38, y + 64, 31);
   const parts = order.recipe.parts;
   parts.forEach((id, i) => {
     const col = i % 3;
     const row = Math.floor(i / 3);
-    const ix = x + 78 + col * 30;
-    const iy = y + 42 + row * 30;
-    roundRect(ctx, ix - 13, iy - 13, 26, 26, 6, '#efe0c2');
-    drawIngredientIcon(ctx, id, ix, iy, 10);
-    prepMark(ctx, INGREDIENTS[id].prep, ix + 10, iy + 9);
+    const ix = x + 87 + col * 29;
+    const iy = y + 47 + row * 33;
+    roundRect(ctx, ix - 13, iy - 14, 27, 28, 6, '#efe0c2');
+    drawIngredientIcon(ctx, id, ix, iy, 11);
+    prepMark(ctx, INGREDIENTS[id].prep, ix + 10, iy + 10);
   });
   roundRect(ctx, x + 8, y + TICKET.h - 16, TICKET.w - 16, 9, 4, '#d8c9ab');
   roundRect(ctx, x + 8, y + TICKET.h - 16, (TICKET.w - 16) * frac, 9, 4, band);
@@ -97,7 +97,7 @@ function drawTicket(ctx, world, order, x, y, time) {
 function drawClock(ctx, world, time) {
   const left = timeLeft(world);
   const cx = 1196;
-  const cy = 66;
+  const cy = 74;
   const frac = left / world.length;
   const late = left <= 30;
   const pulse = late ? 1 + Math.max(0, Math.sin(time * 6.3)) * 0.06 : 1;
@@ -128,22 +128,23 @@ function drawClock(ctx, world, time) {
 /** The whole top band: lanterns, title, purse, tickets and clock. */
 export function drawHud(ctx, world, time) {
   ctx.fillStyle = COLORS.header;
-  ctx.fillRect(0, 0, VIEW.width, GRID.top);
+  ctx.fillRect(0, 0, VIEW.width, STAGE.top);
   ctx.fillStyle = '#5e3a22';
-  ctx.fillRect(0, GRID.top - 8, VIEW.width, 8);
+  ctx.fillRect(0, STAGE.top - 8, VIEW.width, 8);
   lanternString(ctx, time);
-  text(ctx, 'LANTERN LANE', 16, 46, 24, '#ffb347', 900);
-  text(ctx, 'NOODLES', 18, 66, 15, '#ffe6b8', 800);
-  roundRect(ctx, 14, 78, 100, 30, 15, '#3b2c47');
+  text(ctx, 'LANTERN LANE', 16, 52, 24, '#ffb347', 900);
+  text(ctx, 'NOODLES', 18, 74, 15, '#ffe6b8', 800);
+  roundRect(ctx, 14, 88, 100, 32, 16, '#3b2c47');
   ctx.fillStyle = '#ffd84a';
   ctx.beginPath();
-  ctx.arc(30, 93, 9, 0, Math.PI * 2);
+  ctx.arc(31, 104, 10, 0, Math.PI * 2);
   ctx.fill();
-  text(ctx, `${world.coins}`, 46, 100, 20, '#fff6e4', 900);
+  text(ctx, `${world.coins}`, 48, 112, 21, '#fff6e4', 900);
   if (world.combo > 1) {
-    roundRect(ctx, 120, 78, 104, 30, 15, '#e0473a');
-    text(ctx, `STREAK x${world.combo}`, 172, 98, 14, '#fff6e4', 900, 'center');
-  } else text(ctx, `${world.served} served`, 124, 98, 13, '#bfaecf', 700);
+    roundRect(ctx, 120, 88, 104, 32, 16, '#e0473a');
+    text(ctx, `STREAK x${world.combo}`, 172, 109, 14, '#fff6e4', 900, 'center');
+  } else text(ctx, `${world.served} served`, 124, 109, 13, '#bfaecf', 700);
+  text(ctx, `${world.served} bowls · ${world.missed} walk-outs`, 16, 142, 12, '#bfaecf', 700);
   for (let i = 0; i < 5; i += 1) {
     const x = TICKET.x + i * (TICKET.w + TICKET.gap);
     if (!world.orders[i]) {
@@ -157,20 +158,20 @@ export function drawHud(ctx, world, time) {
   }
   drawClock(ctx, world, time);
   if (isRush(world.elapsed)) {
-    roundRect(ctx, 1146, 116, 100, 18, 9, COLORS.bad);
-    text(ctx, '🔥 RUSH', 1196, 129, 12, '#fff', 900, 'center');
+    roundRect(ctx, 1146, 132, 100, 20, 10, COLORS.bad);
+    text(ctx, 'RUSH HOUR', 1196, 146, 12, '#fff', 900, 'center');
   }
 }
 
 /** A tag under the chef's feet naming what it carries, and a hint line along the bottom. */
 export function drawHoldingTag(ctx, world) {
   const hold = world.chef.hold;
-  ctx.font = '700 12px "Trebuchet MS", sans-serif';
-  const msg = hold ? `Holding: ${itemLabel(hold)}` : 'WASD move · E pick up / put down · SPACE chop · click a counter to walk & use';
-  const w = ctx.measureText(msg).width + 20;
-  const x = hold ? world.chef.x : 640;
-  const y = hold ? world.chef.y + 40 : GRID.top + 9 * 64 - 2;
   if (!hold) return;
+  ctx.font = '700 12px "Trebuchet MS", sans-serif';
+  const msg = `Holding: ${itemLabel(hold)}`;
+  const w = ctx.measureText(msg).width + 20;
+  const x = world.chef.x;
+  const y = world.chef.y + 40;
   roundRect(ctx, x - w / 2, y - 13, w, 19, 9, 'rgba(20,12,28,0.78)');
   ctx.fillStyle = '#ffe6b8';
   ctx.textAlign = 'center';

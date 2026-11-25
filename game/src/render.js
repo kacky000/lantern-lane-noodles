@@ -1,5 +1,5 @@
 // Draws one frame: the stall, the chef, the effects, the order board and whichever screen is up.
-import { VIEW } from './config.js';
+import { VIEW, STAGE } from './config.js';
 import { drawFloor, drawStations, drawChef } from './draw-kitchen.js';
 import { drawHud, drawHoldingTag } from './hud.js';
 import { drawFx } from './fx.js';
@@ -19,6 +19,11 @@ export function fitView(canvas, view) {
   view.scale = Math.min(w / VIEW.width, h / VIEW.height);
   view.offsetX = (w - VIEW.width * view.scale) / 2;
   view.offsetY = (h - VIEW.height * view.scale) / 2;
+}
+
+/** A point on the 1280x720 stage to kitchen world coordinates. */
+export function screenToWorld(x, y) {
+  return { x: x / STAGE.scale, y: (y - STAGE.top) / STAGE.scale };
 }
 
 function drawBanner(ctx, banner) {
@@ -51,12 +56,16 @@ export function renderFrame(ctx, canvas, view, world, fx, time, paused) {
   ctx.beginPath();
   ctx.rect(0, 0, VIEW.width, VIEW.height);
   ctx.clip();
+  ctx.save();
+  ctx.translate(0, STAGE.top);
+  ctx.scale(STAGE.scale, STAGE.scale);
   drawFloor(ctx, time);
   const target = world.screen === SCREEN_PLAY ? stationInReach(world) : null;
   drawStations(ctx, world, time, target);
   drawChef(ctx, world.chef, time);
   drawHoldingTag(ctx, world);
   drawFx(ctx, fx);
+  ctx.restore();
   drawHud(ctx, world, time);
   if (fx.flash > 0) {
     ctx.fillStyle = `rgba(255,240,180,${fx.flash * 0.5})`;

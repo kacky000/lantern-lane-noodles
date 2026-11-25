@@ -23,7 +23,7 @@ export function createWorld(seed = 1) {
     length: SHIFT_SECONDS,
     stations,
     stationMap: byKey,
-    chef: makeChef(9, 6),
+    chef: makeChef(7, 5),
     orders: [],
     nextOrderIn: ORDERS.firstAt,
     coins: 0,

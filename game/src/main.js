@@ -4,7 +4,7 @@
 import { createInput } from './input.js';
 import { createWorld, startShift, stepWorld, timeLeft, SCREEN_END, SCREEN_PLAY, SCREEN_TITLE } from './world.js';
 import { createFx, fxForEvent, tickFx, ambientFx } from './fx.js';
-import { renderFrame, fitView } from './render.js';
+import { renderFrame, fitView, screenToWorld } from './render.js';
 import { playEvent, sfx, toggleMute } from './audio.js';
 import { buildShot } from './shots.js';
 import { tileCenter, tileOf } from './layout.js';
@@ -65,7 +65,8 @@ function runGame() {
       if (controls.pause) paused = !paused;
       if (!paused) {
         const click = controls.clicks.length ? controls.clicks[controls.clicks.length - 1] : null;
-        const tile = click ? tileOf(click.x, click.y) : null;
+        const spot = click ? screenToWorld(click.x, click.y) : null;
+        const tile = spot && spot.y >= 0 ? tileOf(spot.x, spot.y) : null;
         stepWorld(world, dt, { moveX: controls.moveX, moveY: controls.moveY, use: controls.use, chop: controls.chop, click: tile });
         const left = Math.ceil(timeLeft(world));
         if (left <= 10 && left !== lastTick && world.screen === SCREEN_PLAY) {

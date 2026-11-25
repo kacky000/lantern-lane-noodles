@@ -2,9 +2,12 @@
 
 export const VIEW = { width: 1280, height: 720 };
 
-/** The kitchen grid: 20 x 9 tiles of 64 px under the order board. */
+/** The kitchen grid in world units: 16 x 7 tiles of 64. */
 export const TILE = 64;
-export const GRID = { cols: 20, rows: 9, top: 136 };
+export const GRID = { cols: 16, rows: 7, top: 0 };
+
+/** Where the kitchen sits on screen: under a 160 px order board, drawn 1.25x so food reads at a glance. */
+export const STAGE = { top: 160, scale: 1.25 };
 
 export const CHEF = {
   speed: 300,

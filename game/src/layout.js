@@ -13,26 +13,25 @@ const PLAN = [
   [5, 0, 'bin', 'tofu'],
   [7, 0, 'pot'],
   [8, 0, 'pot'],
+  [10, 0, 'grill'],
   [11, 0, 'grill'],
-  [12, 0, 'grill'],
-  [15, 0, 'broth'],
+  [13, 0, 'broth'],
   [0, 2, 'board'],
   [0, 4, 'board'],
-  [0, 6, 'trash'],
-  [3, 8, 'bin', 'egg'],
-  [4, 8, 'bin', 'chili'],
-  [5, 8, 'bin', 'shrimp'],
-  [10, 8, 'board'],
-  [14, 2, 'board'],
-  [15, 8, 'broth'],
-  [17, 8, 'bowls'],
-  [19, 3, 'hatch'],
-  [19, 4, 'hatch'],
-  [19, 5, 'hatch'],
+  [0, 5, 'trash'],
+  [2, 6, 'bin', 'egg'],
+  [3, 6, 'bin', 'chili'],
+  [4, 6, 'bin', 'shrimp'],
+  [7, 6, 'board'],
+  [11, 6, 'broth'],
+  [13, 6, 'bowls'],
+  [15, 2, 'hatch'],
+  [15, 3, 'hatch'],
+  [15, 4, 'hatch'],
 ];
 
-/** The plating island in the middle of the floor and the prep island nearer the pass: counters you walk around. */
-export const ISLANDS = [{ row: 4, from: 7, to: 12 }, { row: 2, from: 13, to: 15 }, { row: 6, from: 14, to: 15 }];
+/** The plating island in the middle of the floor and a staging block nearer the pass: counters you walk around. */
+export const ISLANDS = [{ row: 3, from: 5, to: 9 }, { row: 3, from: 12, to: 12 }];
 
 function isBorder(col, row) {
   return row === 0 || row === GRID.rows - 1 || col === 0 || col === GRID.cols - 1;

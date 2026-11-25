@@ -13,7 +13,7 @@ const POP_COLOR = {
 
 export function popup(fx, x, y, text, color = '#fff', size = 18) {
   if (!text) return;
-  fx.popups.push({ x: Math.min(1180, Math.max(90, x)), y: Math.max(GRID.top + 40, y), text, color, size, life: 1.1, age: 0 });
+  fx.popups.push({ x: Math.min(GRID.cols * 64 - 70, Math.max(70, x)), y: Math.max(GRID.top + 30, y), text, color, size, life: 1.1, age: 0 });
 }
 
 function burst(fx, x, y, count, colors, speed, gravity, size) {
